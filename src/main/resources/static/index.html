@@ -7,7 +7,8 @@
     <title>Tamil Nadu Forest Cover Analysis</title>
 
     <!-- Font & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
@@ -15,16 +16,16 @@
             --bg-dark: #101010;
             --bg-light: #1a1a1a;
             --bg-panel: #1f1f1f;
-            
+
             --text-light: #ffffff;
             --text-medium: #e0e0e0;
-            
+
             --primary: #19c37d;
             --secondary: #00a33a;
             --secondary-hover: #0fc57d;
-            --warning: #f39c12; 
-            --info: #3b82f6; 
-            
+            --warning: #f39c12;
+            --info: #3b82f6;
+
             --shadow-color: rgba(0, 0, 0, 0.5);
             --font-main: 'Poppins', sans-serif;
         }
@@ -39,13 +40,22 @@
             background: linear-gradient(-45deg, #020c04, #0a1518, #16262d, #000000);
             background-size: 400% 400%;
             animation: gradientBG 20s ease infinite;
-            padding-bottom: 120px; /* Space for the dock */
+            padding-bottom: 120px;
+            /* Space for the dock */
         }
 
         @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Particle Container */
@@ -68,10 +78,23 @@
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         /* --- LANDING PAGE STYLES --- */
@@ -86,7 +109,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: transparent; 
+            background: transparent;
             transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
             padding: 20px;
             box-sizing: border-box;
@@ -111,7 +134,7 @@
             padding: 50px 60px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 80px rgba(0,0,0,0.6);
+            box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
         }
 
         .landing-icon {
@@ -121,7 +144,7 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 30px;
             filter: drop-shadow(0 0 15px rgba(25, 195, 125, 0.4));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), filter 0.4s ease; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), filter 0.4s ease;
             animation: pulseIcon 4s ease-in-out infinite;
         }
 
@@ -132,9 +155,17 @@
         }
 
         @keyframes pulseIcon {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .landing-title-small {
@@ -154,7 +185,7 @@
             line-height: 1.1;
             text-transform: uppercase;
             letter-spacing: -1px;
-            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             background: linear-gradient(to right, #ffffff 30%, #19c37d 50%, #ffffff 70%);
             background-size: 200% auto;
             background-clip: text;
@@ -164,7 +195,9 @@
         }
 
         @keyframes shine {
-            to { background-position: 200% center; }
+            to {
+                background-position: 200% center;
+            }
         }
 
         .btn-enter {
@@ -196,12 +229,12 @@
 
         /* --- DASHBOARD CONTAINER STYLES --- */
         #dashboard-container {
-            display: none; 
+            display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
             min-height: 100vh;
-            padding-top: 80px; 
+            padding-top: 80px;
             opacity: 0;
             transition: opacity 1s ease;
             position: relative;
@@ -216,20 +249,20 @@
         /* Header */
         header {
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.6); 
+            background-color: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 15px 50px;
-            gap: 40px; 
+            gap: 40px;
             position: fixed;
             top: 0;
             z-index: 1000;
-            flex-wrap: wrap; 
-            box-sizing: border-box; 
+            flex-wrap: wrap;
+            box-sizing: border-box;
         }
 
         .header-item {
@@ -240,14 +273,14 @@
             font-weight: 600;
             color: var(--text-muted);
             transition: all 0.3s ease;
-            cursor: pointer; 
+            cursor: pointer;
             padding: 8px 12px;
             border-radius: 8px;
         }
 
         .header-item:hover {
             color: #fff;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             transform: translateY(-2px);
         }
 
@@ -259,7 +292,7 @@
         /* Main Title */
         .main-title {
             width: 95%;
-            max-width: 1200px; 
+            max-width: 1200px;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(5px);
             text-align: center;
@@ -269,14 +302,16 @@
             font-weight: 700;
             border-radius: 15px;
             letter-spacing: 1px;
-            color: var(--primary); 
-            border: 1px solid rgba(25, 195, 125, 0.3); 
+            color: var(--primary);
+            border: 1px solid rgba(25, 195, 125, 0.3);
             text-shadow: 0 0 10px rgba(25, 195, 125, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Page Sections */
-        .page-section { display: none; }
+        .page-section {
+            display: none;
+        }
 
         .page-section.active#state-analysis-page,
         .page-section.active#district-analysis-page {
@@ -287,7 +322,7 @@
             box-sizing: border-box;
             flex-wrap: wrap;
             justify-content: space-around;
-            align-items: flex-start; 
+            align-items: flex-start;
             gap: 40px;
         }
 
@@ -308,7 +343,7 @@
             background: radial-gradient(circle at center, rgba(42, 42, 42, 0.8) 0%, rgba(16, 16, 16, 0.9) 100%);
             border-radius: 20px;
             border: 1px solid rgba(25, 195, 125, 0.5);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
@@ -326,7 +361,7 @@
             transition: opacity 0.2s;
             font-size: 0.9rem;
             z-index: 10;
-            transform: translate(-50%, -120%); 
+            transform: translate(-50%, -120%);
         }
 
         .map-legend {
@@ -340,7 +375,7 @@
             color: var(--text-medium);
             pointer-events: none;
         }
-        
+
         .gradient-bar {
             width: 150px;
             height: 10px;
@@ -348,24 +383,24 @@
             margin: 5px 0;
             border-radius: 5px;
         }
-        
+
         /* Controls */
         .analysis-controls {
-            flex-basis: 320px; 
+            flex-basis: 320px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px; 
-            width: 100%; 
+            gap: 20px;
+            width: 100%;
             background-color: rgba(31, 31, 31, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.3s ease;
         }
-        
+
         .analysis-controls label {
             font-size: 1rem;
             font-weight: 700;
@@ -375,10 +410,10 @@
             width: 100%;
             text-transform: uppercase;
         }
-        
+
         .styled-select {
             font-family: var(--font-main);
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
             color: var(--text-light);
             border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
@@ -387,7 +422,7 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            -webkit-appearance: none; 
+            -webkit-appearance: none;
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2319c37d' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -402,7 +437,7 @@
             color: var(--text-light);
             padding: 10px;
         }
-        
+
         .chart-area-wrapper {
             flex-basis: 500px;
             flex-grow: 1;
@@ -410,13 +445,13 @@
             flex-direction: column;
             gap: 20px;
         }
-        
+
         .chart-toggles {
             display: flex;
             gap: 15px;
             width: 100%;
         }
-        
+
         .chart-toggles button {
             flex-grow: 1;
             font-family: var(--font-main);
@@ -424,14 +459,14 @@
             font-weight: 700;
             padding: 12px 15px;
             border: 1px solid var(--primary);
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             color: var(--primary);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
-        
+
         .chart-toggles button.active {
             background-color: var(--primary);
             color: #000;
@@ -442,39 +477,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px; 
-            flex-wrap: wrap; 
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        
-        .chart-wrapper.hidden, .chart-area-wrapper.hidden { display: none; }
 
-        .chart-container, .line-chart-container {
+        .chart-wrapper.hidden,
+        .chart-area-wrapper.hidden {
+            display: none;
+        }
+
+        .chart-container,
+        .line-chart-container {
             width: 320px;
             height: 320px;
-            position: relative; 
-            background: rgba(0,0,0,0.2);
-            border-radius: 20px; 
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
             border: 2px solid rgba(25, 195, 125, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             padding: 15px;
             box-sizing: border-box;
             backdrop-filter: blur(5px);
         }
-        
-        .line-chart-container { width: 100%; background-color: rgba(31, 31, 31, 0.6); }
+
+        .line-chart-container {
+            width: 100%;
+            background-color: rgba(31, 31, 31, 0.6);
+        }
 
         .custom-legend {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            background-color: rgba(16, 16, 16, 0.7); 
+            background-color: rgba(16, 16, 16, 0.7);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
@@ -483,6 +525,7 @@
             color: var(--text-light);
             cursor: pointer;
         }
+
         .legend-color {
             width: 16px;
             height: 16px;
@@ -503,7 +546,7 @@
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
             border: 1px solid rgba(25, 195, 125, 0.2);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             z-index: 5000;
             display: flex;
             flex-direction: column;
@@ -557,15 +600,17 @@
             padding: 0 2px;
             box-sizing: border-box;
         }
-        
+
         .slider-labels span {
             position: relative;
             text-align: center;
             cursor: pointer;
             transition: color 0.3s;
         }
-        
-        .slider-labels span:hover { color: var(--primary); }
+
+        .slider-labels span:hover {
+            color: var(--primary);
+        }
 
         .slider-labels span::before {
             content: '';
@@ -575,7 +620,7 @@
             transform: translateX(-50%);
             width: 1px;
             height: 6px;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         input[type=range] {
@@ -586,7 +631,9 @@
             z-index: 2;
         }
 
-        input[type=range]:focus { outline: none; }
+        input[type=range]:focus {
+            outline: none;
+        }
 
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
@@ -604,7 +651,7 @@
             border: 2px solid var(--primary);
             cursor: pointer;
             -webkit-appearance: none;
-            margin-top: -8px; 
+            margin-top: -8px;
             box-shadow: 0 0 0 3px rgba(25, 195, 125, 0.2);
             transition: transform 0.1s, box-shadow 0.2s;
         }
@@ -622,10 +669,22 @@
                 bottom: 10px;
                 height: auto;
             }
-            .slider-labels { font-size: 0.7rem; }
-            .dock-header { font-size: 0.8rem; }
-            #year-display-large { font-size: 1.2rem; }
-            .main-title { font-size: 1.2rem; }
+
+            .slider-labels {
+                font-size: 0.7rem;
+            }
+
+            .dock-header {
+                font-size: 0.8rem;
+            }
+
+            #year-display-large {
+                font-size: 1.2rem;
+            }
+
+            .main-title {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -668,7 +727,7 @@
 
             <!-- PAGE 1: STATE ANALYSIS -->
             <section id="state-analysis-page" class="page-section active">
-                
+
                 <!-- REMOVED: Adjust timeline text block -->
 
                 <div class="chart-area-wrapper hidden" id="state-chart-area">
@@ -725,10 +784,10 @@
                 <span><i class="far fa-calendar-alt"></i> Year Analysis</span>
                 <span id="year-display-large">2023</span>
             </div>
-            
+
             <div class="slider-container">
                 <input type="range" id="global-time-slider" min="2015" max="2025" step="2" value="2023">
-                
+
                 <div class="slider-labels">
                     <span>2015</span>
                     <span>2017</span>
@@ -757,7 +816,7 @@
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
         window.addEventListener("DOMContentLoaded", () => {
-            
+
             // --- Navigation / Landing Page Logic ---
             const landingPage = document.getElementById('landing-page');
             const dashboardContainer = document.getElementById('dashboard-container');
@@ -765,7 +824,7 @@
 
             // Spawn Particles
             const particleContainer = document.getElementById('particles-container');
-            for(let i=0; i<40; i++) {
+            for (let i = 0; i < 40; i++) {
                 const p = document.createElement('div');
                 p.classList.add('particle');
                 const size = Math.random() * 8 + 3;
@@ -794,7 +853,7 @@
             const navMap = document.getElementById('nav-map');
             const allPages = document.querySelectorAll('.page-section');
             const allNavItems = document.querySelectorAll('.header-item');
-            
+
             // --- State Page Elements ---
             const stateChartArea = document.getElementById('state-chart-area');
             const statePieWrapper = document.getElementById('state-pie-wrapper');
@@ -804,9 +863,9 @@
             const stateCtx = document.getElementById("forestChart").getContext("2d");
             const stateLineCtx = document.getElementById("stateLineChart").getContext("2d");
             const stateLegendContainer = document.getElementById("customLegend");
-            let stateChartInstance = null; 
+            let stateChartInstance = null;
             let stateLineChartInstance = null;
-            
+
             // --- District Page Elements ---
             const pageDistrictSelect = document.getElementById('district-select');
             const districtChartArea = document.getElementById('district-chart-area');
@@ -824,40 +883,40 @@
             const canvasContainer = document.getElementById('canvas-container');
             const tooltip = document.getElementById('tooltip');
             let mapInitialized = false;
-            
+
             // --- Data ---
             const years = ["2015", "2017", "2019", "2021", "2023", "2025"];
             const API_BASE = "/api/analysis";
             const districts = [
-                "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", 
-                "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", 
-                "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", "Nilgiris", 
-                "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga", 
-                "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", 
-                "Tirupathur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", 
+                "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri",
+                "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur",
+                "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", "Nilgiris",
+                "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga",
+                "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli",
+                "Tirupathur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore",
                 "Viluppuram", "Virudhunagar"
             ];
-            
+
             const chartLabels = ["Forest", "Land", "Water"];
-            
-            
+
+
             const getCSSVar = (varName) => getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
             const chartColors = [getCSSVar('--primary'), getCSSVar('--warning'), getCSSVar('--info')];
 
             // --- Helper Functions ---
             async function fetchDistrictData(district) {
-    const res = await fetch(`${API_BASE}/district/${district}`);
-    return await res.json();
-}
+                const res = await fetch(`${API_BASE}/district/${district}`);
+                return await res.json();
+            }
 
-async function fetchStateData() {
-    const res = await fetch(`${API_BASE}/state`);
-    return await res.json();
-}
+            async function fetchStateData() {
+                const res = await fetch(`${API_BASE}/state`);
+                return await res.json();
+            }
 
 
             function buildCustomLegend(containerElement, labels, backgroundColors, data) {
-                containerElement.innerHTML = ''; 
+                containerElement.innerHTML = '';
                 labels.forEach((label, i) => {
                     const item = document.createElement("div");
                     item.classList.add("legend-item");
@@ -885,8 +944,8 @@ async function fetchStateData() {
                             datasets: [{
                                 data: data,
                                 backgroundColor: chartColors,
-                                borderColor: 'transparent', 
-                                borderWidth: 0 
+                                borderColor: 'transparent',
+                                borderWidth: 0
                             }]
                         },
                         options: {
@@ -894,7 +953,7 @@ async function fetchStateData() {
                             maintainAspectRatio: false,
                             plugins: {
                                 title: { display: true, text: title, color: getCSSVar('--text-light'), font: { size: 16, weight: '600' } },
-                                legend: { display: false }, 
+                                legend: { display: false },
                                 tooltip: {
                                     enabled: true, backgroundColor: "#111", titleColor: getCSSVar('--primary'), bodyColor: getCSSVar('--text-light'), borderColor: getCSSVar('--primary'), borderWidth: 1,
                                     callbacks: { label: (tooltipItem) => `${tooltipItem.label}: ${tooltipItem.raw}%` }
@@ -905,7 +964,7 @@ async function fetchStateData() {
                     });
                 }
                 buildCustomLegend(legend, chartLabels, chartColors, data);
-                return chartInstance; 
+                return chartInstance;
             }
 
             function createOrUpdateLineChart(chartInstance, context, title, data) {
@@ -929,7 +988,7 @@ async function fetchStateData() {
                             responsive: true, maintainAspectRatio: false,
                             plugins: {
                                 title: { display: true, text: title, color: getCSSVar('--text-light'), font: { size: 16, weight: '600' } },
-                                legend: { display: false }, 
+                                legend: { display: false },
                                 tooltip: { enabled: true, backgroundColor: "#111", titleColor: getCSSVar('--primary'), bodyColor: getCSSVar('--text-light'), borderColor: getCSSVar('--primary'), borderWidth: 1, callbacks: { label: (tooltipItem) => `Forest Cover: ${tooltipItem.raw}%` } }
                             },
                             scales: {
@@ -965,110 +1024,110 @@ async function fetchStateData() {
             districtPieToggle.addEventListener('click', () => { districtPieWrapper.classList.remove('hidden'); districtLineWrapper.classList.add('hidden'); districtPieToggle.classList.add('active'); districtLineToggle.classList.remove('active'); });
             districtLineToggle.addEventListener('click', () => { districtPieWrapper.classList.add('hidden'); districtLineWrapper.classList.remove('hidden'); districtPieToggle.classList.remove('active'); districtLineToggle.classList.add('active'); });
 
-            
+
             // ==========================================
             //  SIMPLIFIED: STATIC TIME SLIDER LOGIC
             // ==========================================
-            
+
             const timeSlider = document.getElementById('global-time-slider');
             const yearDisplay = document.getElementById('year-display-large');
-            
+
             // Centralized Update Function (Reused)
-           async function handleGlobalTimeUpdate(year) {
-    // 1. Update Display
-    yearDisplay.innerText = year;
-    timeSlider.value = year;
+            async function handleGlobalTimeUpdate(year) {
+                // 1. Update Display
+                yearDisplay.innerText = year;
+                timeSlider.value = year;
 
-    /* =========================
-       2. STATE ANALYSIS (REAL DB)
-       ========================= */
-    const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
+                /* =========================
+                   2. STATE ANALYSIS (REAL DB)
+                   ========================= */
+                const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
 
 
-    const stateYearData = stateData.find(d => d.id.year == year);
-    if (!stateYearData) return;
+                const stateYearData = stateData.find(d => d.id.year == year);
+                if (!stateYearData) return;
 
-    const statePieTitle = `State Composition (${year})`;
-    const statePieData = [
-        stateYearData.forestPercentage,
-        stateYearData.landPercentage,
-        stateYearData.waterPercentage
-    ];
+                const statePieTitle = `State Composition (${year})`;
+                const statePieData = [
+                    stateYearData.forestPercentage,
+                    stateYearData.landPercentage,
+                    stateYearData.waterPercentage
+                ];
 
-    stateChartInstance = createOrUpdatePieChart(
-        stateChartInstance,
-        stateCtx,
-        statePieWrapper,
-        stateLegendContainer,
-        statePieTitle,
-        statePieData
-    );
+                stateChartInstance = createOrUpdatePieChart(
+                    stateChartInstance,
+                    stateCtx,
+                    statePieWrapper,
+                    stateLegendContainer,
+                    statePieTitle,
+                    statePieData
+                );
 
-    const stateLineTitle = `State Forest Trend (2015-${year})`;
-    const stateLineData = {};
-    stateData
-        .filter(d => d.id.year <= year)
-        .forEach(d => stateLineData[d.id.year] = d.forestPercentage);
+                const stateLineTitle = `State Forest Trend (2015-${year})`;
+                const stateLineData = {};
+                stateData
+                    .filter(d => d.id.year <= year)
+                    .forEach(d => stateLineData[d.id.year] = d.forestPercentage);
 
-    stateLineChartInstance = createOrUpdateLineChart(
-        stateLineChartInstance,
-        stateLineCtx,
-        stateLineTitle,
-        stateLineData
-    );
+                stateLineChartInstance = createOrUpdateLineChart(
+                    stateLineChartInstance,
+                    stateLineCtx,
+                    stateLineTitle,
+                    stateLineData
+                );
 
-    stateChartArea.classList.remove('hidden');
+                stateChartArea.classList.remove('hidden');
 
-    /* ============================
-       3. DISTRICT ANALYSIS (REAL DB)
-       ============================ */
-    const selectedDistrict = pageDistrictSelect.value;
+                /* ============================
+                   3. DISTRICT ANALYSIS (REAL DB)
+                   ============================ */
+                const selectedDistrict = pageDistrictSelect.value;
 
-    if (selectedDistrict) {
-        const districtData = await fetchDistrictData(selectedDistrict);
+                if (selectedDistrict) {
+                    const districtData = await fetchDistrictData(selectedDistrict);
 
-        const districtYearData = districtData.find(d => d.id.year == year);
-        if (!districtYearData) return;
+                    const districtYearData = districtData.find(d => d.id.year == year);
+                    if (!districtYearData) return;
 
-        const dPieTitle = `${selectedDistrict} Composition (${year})`;
-        const dPieData = [
-            districtYearData.forestPercentage,
-            districtYearData.landPercentage,
-            districtYearData.waterPercentage
-        ];
+                    const dPieTitle = `${selectedDistrict} Composition (${year})`;
+                    const dPieData = [
+                        districtYearData.forestPercentage,
+                        districtYearData.landPercentage,
+                        districtYearData.waterPercentage
+                    ];
 
-        districtChartInstance = createOrUpdatePieChart(
-            districtChartInstance,
-            districtCtx,
-            districtPieWrapper,
-            districtLegendContainer,
-            dPieTitle,
-            dPieData
-        );
+                    districtChartInstance = createOrUpdatePieChart(
+                        districtChartInstance,
+                        districtCtx,
+                        districtPieWrapper,
+                        districtLegendContainer,
+                        dPieTitle,
+                        dPieData
+                    );
 
-        const dLineTitle = `${selectedDistrict} Forest Trend (2015-${year})`;
-        const dLineData = {};
-        districtData
-            .filter(d => d.id.year <= year)
-            .forEach(d => dLineData[d.id.year] = d.forestPercentage);
+                    const dLineTitle = `${selectedDistrict} Forest Trend (2015-${year})`;
+                    const dLineData = {};
+                    districtData
+                        .filter(d => d.id.year <= year)
+                        .forEach(d => dLineData[d.id.year] = d.forestPercentage);
 
-        districtLineChartInstance = createOrUpdateLineChart(
-            districtLineChartInstance,
-            districtLineCtx,
-            dLineTitle,
-            dLineData
-        );
+                    districtLineChartInstance = createOrUpdateLineChart(
+                        districtLineChartInstance,
+                        districtLineCtx,
+                        dLineTitle,
+                        dLineData
+                    );
 
-        districtChartArea.classList.remove('hidden');
-    }
+                    districtChartArea.classList.remove('hidden');
+                }
 
-    /* ===========
-       4. 3D MAP
-       =========== */
-    if (scene && districtMeshes.length > 0) {
-        update3DMapData(year);
-    }
-}
+                /* ===========
+                   4. 3D MAP
+                   =========== */
+                if (scene && districtMeshes.length > 0) {
+                    update3DMapData(year);
+                }
+            }
 
 
             // Simple event listener for the slider
@@ -1080,37 +1139,37 @@ async function fetchStateData() {
             pageDistrictSelect.addEventListener('change', () => {
                 handleGlobalTimeUpdate(timeSlider.value);
             });
-            
+
             // --- 3D MAP LOGIC ---
 
-            const districtMeshes = []; 
-            let scene, camera, renderer, floorPoints; 
-            
+            const districtMeshes = [];
+            let scene, camera, renderer, floorPoints;
+
             const mapCoords = {
-                "Chennai": {x: 6, z: -8}, "Tiruvallur": {x: 5, z: -9}, "Kanchipuram": {x: 5, z: -7}, "Chengalpattu": {x: 6, z: -6},
-                "Vellore": {x: 3, z: -8}, "Ranipet": {x: 4, z: -8}, "Tirupathur": {x: 2, z: -7}, "Tiruvannamalai": {x: 3, z: -6},
-                "Krishnagiri": {x: 1, z: -8}, "Dharmapuri": {x: 0, z: -7}, "Viluppuram": {x: 4, z: -5}, "Kallakurichi": {x: 2, z: -5}, 
-                "Cuddalore": {x: 5, z: -4}, "Salem": {x: 0, z: -5}, "Erode": {x: -2, z: -4}, "Namakkal": {x: 0, z: -3},
-                "Nilgiris": {x: -4, z: -4}, "Coimbatore": {x: -4, z: -2}, "Tiruppur": {x: -2, z: -2}, "Karur": {x: -1, z: -2}, 
-                "Tiruchirappalli": {x: 1, z: -2}, "Perambalur": {x: 2, z: -3}, "Ariyalur": {x: 3, z: -3}, "Thanjavur": {x: 3, z: -1}, 
-                "Tiruvarur": {x: 4, z: -1}, "Nagapattinam": {x: 5, z: -2}, "Mayiladuthurai": {x: 5, z: -3}, "Pudukkottai": {x: 2, z: 0},
-                "Dindigul": {x: -1, z: 0}, "Theni": {x: -2, z: 2}, "Madurai": {x: 0, z: 2}, "Sivaganga": {x: 2, z: 2},
-                "Virudhunagar": {x: 0, z: 4}, "Ramanathapuram": {x: 3, z: 4}, "Tenkasi": {x: -1, z: 6}, "Tirunelveli": {x: 0, z: 6}, 
-                "Thoothukudi": {x: 2, z: 6}, "Kanyakumari": {x: 0, z: 8}
+                "Chennai": { x: 6, z: -8 }, "Tiruvallur": { x: 5, z: -9 }, "Kanchipuram": { x: 5, z: -7 }, "Chengalpattu": { x: 6, z: -6 },
+                "Vellore": { x: 3, z: -8 }, "Ranipet": { x: 4, z: -8 }, "Tirupathur": { x: 2, z: -7 }, "Tiruvannamalai": { x: 3, z: -6 },
+                "Krishnagiri": { x: 1, z: -8 }, "Dharmapuri": { x: 0, z: -7 }, "Viluppuram": { x: 4, z: -5 }, "Kallakurichi": { x: 2, z: -5 },
+                "Cuddalore": { x: 5, z: -4 }, "Salem": { x: 0, z: -5 }, "Erode": { x: -2, z: -4 }, "Namakkal": { x: 0, z: -3 },
+                "Nilgiris": { x: -4, z: -4 }, "Coimbatore": { x: -4, z: -2 }, "Tiruppur": { x: -2, z: -2 }, "Karur": { x: -1, z: -2 },
+                "Tiruchirappalli": { x: 1, z: -2 }, "Perambalur": { x: 2, z: -3 }, "Ariyalur": { x: 3, z: -3 }, "Thanjavur": { x: 3, z: -1 },
+                "Tiruvarur": { x: 4, z: -1 }, "Nagapattinam": { x: 5, z: -2 }, "Mayiladuthurai": { x: 5, z: -3 }, "Pudukkottai": { x: 2, z: 0 },
+                "Dindigul": { x: -1, z: 0 }, "Theni": { x: -2, z: 2 }, "Madurai": { x: 0, z: 2 }, "Sivaganga": { x: 2, z: 2 },
+                "Virudhunagar": { x: 0, z: 4 }, "Ramanathapuram": { x: 3, z: 4 }, "Tenkasi": { x: -1, z: 6 }, "Tirunelveli": { x: 0, z: 6 },
+                "Thoothukudi": { x: 2, z: 6 }, "Kanyakumari": { x: 0, z: 8 }
             };
 
             function initThreeJS() {
                 scene = new THREE.Scene();
-                scene.fog = new THREE.FogExp2(0x101010, 0.035); 
+                scene.fog = new THREE.FogExp2(0x101010, 0.035);
                 camera = new THREE.PerspectiveCamera(45, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-                camera.position.set(0, 15, 20); 
+                camera.position.set(0, 15, 20);
                 camera.lookAt(0, 0, 0);
                 renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                 renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
                 renderer.setPixelRatio(window.devicePixelRatio);
                 canvasContainer.appendChild(renderer.domElement);
                 const controls = new OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true; controls.dampingFactor = 0.05; controls.minDistance = 10; controls.maxDistance = 50; controls.maxPolarAngle = Math.PI / 2.2; 
+                controls.enableDamping = true; controls.dampingFactor = 0.05; controls.minDistance = 10; controls.maxDistance = 50; controls.maxPolarAngle = Math.PI / 2.2;
                 scene.add(new THREE.AmbientLight(0xffffff, 0.5));
                 const dirLight = new THREE.DirectionalLight(0xffffff, 1); dirLight.position.set(10, 20, 10); scene.add(dirLight);
                 const pointLight = new THREE.PointLight(0x19c37d, 2, 50); pointLight.position.set(0, 5, 0); scene.add(pointLight);
@@ -1147,7 +1206,7 @@ async function fetchStateData() {
                         tooltip.style.opacity = 0;
                     }
                 }
-                
+
                 function onClick(event) {
                     const rect = renderer.domElement.getBoundingClientRect();
                     mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -1160,7 +1219,7 @@ async function fetchStateData() {
                         pageDistrictSelect.value = object.userData.districtName;
                         handleGlobalTimeUpdate(timeSlider.value);
                         showPage('district-analysis-page', navDistrict);
-                        setTimeout(() => { document.getElementById('district-chart-area').scrollIntoView({behavior: 'smooth'}); }, 100);
+                        setTimeout(() => { document.getElementById('district-chart-area').scrollIntoView({ behavior: 'smooth' }); }, 100);
                     }
                 }
 
@@ -1174,66 +1233,66 @@ async function fetchStateData() {
                     renderer.render(scene, camera);
                 }
                 animate();
-                
+
                 window.addEventListener('resize', () => {
-                   if(camera && renderer) {
-                       camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-                       camera.updateProjectionMatrix();
-                       renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-                   }
+                    if (camera && renderer) {
+                        camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+                    }
                 });
             }
 
             function generateDistrictMeshes() {
                 const hexRadius = 0.8;
-                const geometry = new THREE.CylinderGeometry(hexRadius, hexRadius, 1, 6); 
-                
+                const geometry = new THREE.CylinderGeometry(hexRadius, hexRadius, 1, 6);
+
                 districts.forEach(district => {
-                    const coords = mapCoords[district] || {x: (Math.random()-0.5)*10, z: (Math.random()-0.5)*10}; 
+                    const coords = mapCoords[district] || { x: (Math.random() - 0.5) * 10, z: (Math.random() - 0.5) * 10 };
                     const material = new THREE.MeshPhongMaterial({ color: 0x19c37d, flatShading: true, shininess: 30 });
                     const mesh = new THREE.Mesh(geometry, material);
-                    mesh.position.x = coords.x * 1.8; 
+                    mesh.position.x = coords.x * 1.8;
                     mesh.position.z = coords.z * 1.8;
-                    mesh.position.y = 0; 
+                    mesh.position.y = 0;
                     mesh.userData = { districtName: district, forestValue: 0 };
                     scene.add(mesh);
                     districtMeshes.push(mesh);
                 });
-                
+
                 // Initial data load for map
                 update3DMapData(timeSlider.value);
             }
 
             // MODIFIED: Accepts year argument
             async function update3DMapData(year) {
-    for (const mesh of districtMeshes) {
-        const district = mesh.userData.districtName;
+                for (const mesh of districtMeshes) {
+                    const district = mesh.userData.districtName;
 
-        const data = await fetchDistrictData(district);
-        const yearData = data.find(d => d.id.year == year);
-        if (!yearData) continue;
+                    const data = await fetchDistrictData(district);
+                    const yearData = data.find(d => d.id.year == year);
+                    if (!yearData) continue;
 
-        const forestVal = yearData.forestPercentage;
-        mesh.userData.forestValue = forestVal;
+                    const forestVal = yearData.forestPercentage;
+                    mesh.userData.forestValue = forestVal;
 
-        const targetHeight = 0.5 + (forestVal / 20);
-        mesh.scale.set(1, targetHeight, 1);
-        mesh.position.y = targetHeight / 2;
+                    const targetHeight = 0.5 + (forestVal / 20);
+                    mesh.scale.set(1, targetHeight, 1);
+                    mesh.position.y = targetHeight / 2;
 
-        const color = new THREE.Color();
-        if (forestVal < 20) color.setHex(0xf39c12);
-        else if (forestVal < 40) color.setHex(0xbadc58);
-        else if (forestVal < 60) color.setHex(0x19c37d);
-        else color.setHex(0x006400);
+                    const color = new THREE.Color();
+                    if (forestVal < 20) color.setHex(0xf39c12);
+                    else if (forestVal < 40) color.setHex(0xbadc58);
+                    else if (forestVal < 60) color.setHex(0x19c37d);
+                    else color.setHex(0x006400);
 
-        mesh.material.color = color;
-    }
-}
+                    mesh.material.color = color;
+                }
+            }
 
-            
+
             // --- Initial Setup ---
             navState.classList.add('active-nav');
-            
+
             // Populate District dropdown
             districts.forEach(district => {
                 const option = document.createElement('option');
@@ -1241,11 +1300,12 @@ async function fetchStateData() {
                 option.text = district;
                 pageDistrictSelect.appendChild(option);
             });
-            
+
             // Generate Data
-        
-            
+
+
         });
     </script>
 </body>
+
 </html>
