@@ -13,91 +13,31 @@
 
     <style>
         :root {
-            --bg-dark: #101010;
-            --bg-light: #1a1a1a;
-            --bg-panel: #1f1f1f;
-
+            /* Creative Lab Theme Colors (Landing) */
+            --bg-hero: radial-gradient(circle at center, #0a192f 0%, #020617 100%);
+            --accent-forest: #00D084; /* Vibrant Emerald */
+            --accent-land: #F72585;   /* Sunset Magenta */
+            --accent-water: #4361EE;  /* Electric Indigo */
+            
+            /* Metallic Palette */
+            --met-gold: #d4af37;
+            --met-silver: #bdc3c7;
+            
+            --silver-metallic: linear-gradient(to right, #ffffff, #bdc3c7, #22C55E, #06b6d4, #ffffff);
             --text-light: #ffffff;
-            --text-medium: #e0e0e0;
-
-            --primary: #19c37d;
-            --secondary: #00a33a;
-            --secondary-hover: #0fc57d;
-            --warning: #f39c12;
-            --info: #3b82f6;
-
-            --shadow-color: rgba(0, 0, 0, 0.5);
+            --text-dim: #94A3B8;
             --font-main: 'Poppins', sans-serif;
         }
 
-        /* --- GLOBAL BACKGROUND & ANIMATION --- */
         body {
             font-family: var(--font-main);
             margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background: #020617;
             color: var(--text-light);
-            background: linear-gradient(-45deg, #020c04, #0a1518, #16262d, #000000);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
-            padding-bottom: 120px;
-            /* Space for the dock */
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Particle Container */
-        #particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(25, 195, 125, 0.6);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary);
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-
-            20% {
-                opacity: 0.8;
-            }
-
-            80% {
-                opacity: 0.6;
-            }
-
-            100% {
-                transform: translateY(-10vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* --- LANDING PAGE STYLES --- */
+        /* --- IMMERSIVE HERO SECTION --- */
         #landing-page {
             position: fixed;
             top: 0;
@@ -106,697 +46,398 @@
             height: 100vh;
             z-index: 2000;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: transparent;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
+            background: var(--bg-hero);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1s ease;
         }
 
-        #landing-page.hidden {
+        #landing-page.transitioning {
             opacity: 0;
-            transform: translateY(-50px);
+            transform: scale(1.1);
+            filter: blur(40px) brightness(1.5);
             pointer-events: none;
         }
 
-        .landing-content {
+        #hero-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
             position: relative;
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 50px 60px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            max-width: 1100px;
+            padding: 20px;
+            pointer-events: none;
+            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s ease;
         }
 
-        .landing-icon {
-            font-size: 6rem;
-            background: linear-gradient(to bottom, #19c37d, #006400);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 15px rgba(25, 195, 125, 0.4));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), filter 0.4s ease;
-            animation: pulseIcon 4s ease-in-out infinite;
-        }
-
-        .landing-icon:hover {
-            transform: scale(1.15) rotate(5deg) translateY(-10px);
-            filter: drop-shadow(0 0 40px rgba(25, 195, 125, 0.9));
-            cursor: pointer;
-        }
-
-        @keyframes pulseIcon {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .landing-title-small {
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 4px;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 10px;
+        .transitioning .hero-content {
+            transform: scale(0.8) translateZ(-100px);
+            opacity: 0;
         }
 
         .landing-title-main {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin: 0 0 40px 0;
+            font-size: 3.8rem;
+            font-weight: 900;
             line-height: 1.1;
+            margin: 0 0 3.5rem 0;
             text-transform: uppercase;
-            letter-spacing: -1px;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(to right, #ffffff 30%, #19c37d 50%, #ffffff 70%);
-            background-size: 200% auto;
-            background-clip: text;
+            letter-spacing: -2px;
+            background: var(--silver-metallic);
+            background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 6s linear infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+            opacity: 0;
+            animation: fadeIn 1.5s forwards 0.5s, colorFlow 10s linear infinite;
         }
 
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
+        @keyframes colorFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
         }
 
-        .btn-enter {
-            padding: 16px 45px;
+        .landing-title-main span.highlight {
+            display: inline-block;
+            background: linear-gradient(to right, #22C55E, #a7f3d0, #ffffff, #06b6d4, #22C55E);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.8));
+            animation: colorFlow 5s linear infinite reverse;
+            position: relative;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            pointer-events: auto;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.2s;
+        }
+
+        .btn-main {
+            padding: 22px 60px;
             font-size: 1.1rem;
-            font-weight: 700;
-            font-family: var(--font-main);
-            color: #000;
-            background: var(--primary);
-            border: none;
-            border-radius: 50px;
+            font-weight: 800;
+            border-radius: 100px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(25, 195, 125, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            text-transform: uppercase;
+            letter-spacing: 4px;
             display: flex;
             align-items: center;
             gap: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border: none;
             position: relative;
-            z-index: 1;
             overflow: hidden;
+            background: #fff;
+            color: #020617;
         }
 
-        .btn-enter:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(25, 195, 125, 0.8);
+        .btn-main:hover {
+            transform: translateY(-10px);
+            background: #22C55E;
+            color: #fff;
+            box-shadow: 0 25px 50px rgba(34, 197, 94, 0.6);
+            letter-spacing: 7px;
         }
 
-        /* --- DASHBOARD CONTAINER STYLES --- */
+        #portal-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- DASHBOARD UI --- */
         #dashboard-container {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            background: linear-gradient(45deg, #010409 0%, #061e1a 25%, #0f172a 50%, #1a0f2e 75%, #020617 100%);
+            background-size: 400% 400%;
+            animation: dashboardMeshFlow 25s ease infinite;
             min-height: 100vh;
-            padding-top: 80px;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.5s ease;
             position: relative;
-            z-index: 10;
         }
 
-        #dashboard-container.visible {
-            display: flex;
-            opacity: 1;
+        #dashboard-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* Header */
+        @keyframes dashboardMeshFlow {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        #dashboard-container.visible { display: flex; opacity: 1; }
+
         header {
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: rgba(1, 4, 9, 0.85);
+            backdrop-filter: blur(30px);
+            border-bottom: 2px solid var(--met-gold);
             padding: 15px 50px;
-            gap: 40px;
             position: fixed;
             top: 0;
             z-index: 1000;
-            flex-wrap: wrap;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
             box-sizing: border-box;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .header-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 10px 24px;
+            border-radius: 12px;
             cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-        }
-
-        .header-item:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .header-item.active-nav {
-            color: var(--primary);
-            background: rgba(25, 195, 125, 0.1);
-        }
-
-        /* Main Title */
-        .main-title {
-            width: 95%;
-            max-width: 1200px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(5px);
-            text-align: center;
-            padding: 25px 0;
-            margin: 40px 0;
-            font-size: 1.5rem;
-            font-weight: 700;
-            border-radius: 15px;
-            letter-spacing: 1px;
-            color: var(--primary);
-            border: 1px solid rgba(25, 195, 125, 0.3);
-            text-shadow: 0 0 10px rgba(25, 195, 125, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Page Sections */
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active#state-analysis-page,
-        .page-section.active#district-analysis-page {
-            display: flex;
-            width: 95%;
-            max-width: 1200px;
-            margin: 20px auto 60px auto;
-            box-sizing: border-box;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 40px;
-        }
-
-        .page-section.active#map-3d-page {
-            display: flex;
-            flex-direction: column;
-            width: 95%;
-            max-width: 1200px;
-            margin: 20px auto 60px auto;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* 3D Map Container */
-        #canvas-container {
-            width: 100%;
-            height: 600px;
-            background: radial-gradient(circle at center, rgba(42, 42, 42, 0.8) 0%, rgba(16, 16, 16, 0.9) 100%);
-            border-radius: 20px;
-            border: 1px solid rgba(25, 195, 125, 0.5);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .map-tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid var(--primary);
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 0.9rem;
-            z-index: 10;
-            transform: translate(-50%, -120%);
-        }
-
-        .map-legend {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-medium);
-            pointer-events: none;
-        }
-
-        .gradient-bar {
-            width: 150px;
-            height: 10px;
-            background: linear-gradient(to right, #f39c12, #19c37d, #006400);
-            margin: 5px 0;
-            border-radius: 5px;
-        }
-
-        /* Controls */
-        .analysis-controls {
-            flex-basis: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            background-color: rgba(31, 31, 31, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .analysis-controls label {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-            text-align: center;
-            width: 100%;
+            transition: 0.3s;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        .styled-select {
-            font-family: var(--font-main);
-            background-color: rgba(0, 0, 0, 0.4);
-            color: var(--text-light);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+        .header-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+        .header-item.active-nav { 
+            color: #fff; 
+            background: var(--met-gold); 
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4); 
+        }
+
+        .main-content {
             width: 100%;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2319c37d' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 16px 16px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        .styled-select option {
-            background: var(--bg-dark);
-            color: var(--text-light);
-            padding: 10px;
-        }
-
-        .chart-area-wrapper {
-            flex-basis: 500px;
-            flex-grow: 1;
+            margin-top: 100px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .chart-toggles {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .chart-toggles button {
-            flex-grow: 1;
-            font-family: var(--font-main);
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 12px 15px;
-            border: 1px solid var(--primary);
-            background-color: rgba(0, 0, 0, 0.3);
-            color: var(--primary);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .chart-toggles button.active {
-            background-color: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(25, 195, 125, 0.3);
-        }
-
-        .chart-wrapper {
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .chart-wrapper.hidden,
-        .chart-area-wrapper.hidden {
-            display: none;
-        }
-
-        .chart-container,
-        .line-chart-container {
-            width: 320px;
-            height: 320px;
-            position: relative;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
-            border: 2px solid rgba(25, 195, 125, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            box-sizing: border-box;
-            backdrop-filter: blur(5px);
-        }
-
-        .line-chart-container {
-            width: 100%;
-            background-color: rgba(31, 31, 31, 0.6);
-        }
-
-        .custom-legend {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background-color: rgba(16, 16, 16, 0.7);
-            backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: var(--text-light);
-            cursor: pointer;
+        .page-section { display: none; width: 95%; max-width: 1400px; margin: 20px auto; gap: 30px; }
+        .page-section.active { display: flex; flex-wrap: wrap; justify-content: center; }
+
+        /* --- CHART PLATES --- */
+        .chart-container {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
+            backdrop-filter: blur(25px);
+            border: 2px solid var(--met-gold);
+            border-radius: 24px;
+            padding: 35px;
+            flex: 1;
+            min-width: 450px;
+            height: 480px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27);
+        }
+        
+        .chart-container:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: #fff;
+            box-shadow: 0 35px 80px rgba(212, 175, 55, 0.15);
         }
 
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-        }
-
-        /* --- STATIC TIME DOCK --- */
+        /* --- COMPACT METALLIC SLIDER --- */
         #time-control-dock {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 900px;
-            height: 100px;
-            background: rgba(15, 15, 15, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            max-width: 480px;
+            background: rgba(13, 17, 23, 0.98);
+            backdrop-filter: blur(30px);
             border-radius: 20px;
-            border: 1px solid rgba(25, 195, 125, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            z-index: 5000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 20px 40px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
+            padding: 15px 40px;
+            z-index: 1500;
+            border: 2px solid var(--met-gold);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        #time-control-dock:hover {
-            border-color: var(--primary);
-            box-shadow: 0 20px 70px rgba(25, 195, 125, 0.1);
-        }
-
-        .dock-header {
+        .slider-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            color: var(--primary);
-            font-weight: 600;
-            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .slider-label {
+            letter-spacing: 5px;
+            font-weight: 800;
+            color: var(--text-dim);
+            font-size: 0.65rem;
             text-transform: uppercase;
-            font-size: 0.9rem;
         }
 
-        #year-display-large {
-            font-size: 1.5rem;
-            color: #fff;
-            font-weight: 700;
+        #year-display-large { 
+            color: var(--met-gold); 
+            font-size: 1.8rem;
+            font-weight: 900; 
             font-family: 'Courier New', monospace;
-        }
-
-        /* Slider Styling */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Tick Labels */
-        .slider-labels {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-medium);
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-top: 10px;
-            width: 100%;
-            padding: 0 2px;
-            box-sizing: border-box;
-        }
-
-        .slider-labels span {
-            position: relative;
-            text-align: center;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .slider-labels span:hover {
-            color: var(--primary);
-        }
-
-        .slider-labels span::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
-            margin: 0;
-            z-index: 2;
-        }
-
-        input[type=range]:focus {
-            outline: none;
         }
 
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%;
-            height: 4px;
+            height: 6px;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.15);
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         input[type=range]::-webkit-slider-thumb {
-            height: 20px;
-            width: 20px;
+            height: 24px;
+            width: 24px;
             border-radius: 50%;
-            background: #101010;
-            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, #fff, var(--met-gold));
             cursor: pointer;
             -webkit-appearance: none;
-            margin-top: -8px;
-            box-shadow: 0 0 0 3px rgba(25, 195, 125, 0.2);
-            transition: transform 0.1s, box-shadow 0.2s;
+            margin-top: -9px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+            border: 2px solid #010409;
         }
 
-        input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            background: var(--primary);
-            box-shadow: 0 0 0 6px rgba(25, 195, 125, 0.1);
+        /* --- MAP TOOLTIP --- */
+        #map-tooltip {
+            position: absolute;
+            display: none;
+            padding: 15px 25px;
+            background: rgba(1, 4, 9, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--met-gold);
+            border-radius: 12px;
+            color: #fff;
+            pointer-events: none;
+            z-index: 3000;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            font-size: 0.9rem;
+            min-width: 160px;
         }
+
+        #map-tooltip b { color: var(--met-gold); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        #map-tooltip span { color: var(--accent-forest); font-weight: 800; font-size: 1.1rem; }
 
         @media (max-width: 768px) {
-            #time-control-dock {
-                width: 95%;
-                padding: 15px 20px;
-                bottom: 10px;
-                height: auto;
-            }
-
-            .slider-labels {
-                font-size: 0.7rem;
-            }
-
-            .dock-header {
-                font-size: 0.8rem;
-            }
-
-            #year-display-large {
-                font-size: 1.2rem;
-            }
-
-            .main-title {
-                font-size: 1.2rem;
-            }
+            .landing-title-main { font-size: 2.2rem; }
+            header { padding: 10px 15px; gap: 10px; overflow-x: auto; justify-content: flex-start; }
+            .header-item { font-size: 0.7rem; padding: 8px 12px; }
+            .chart-container { min-width: 100%; height: 350px; }
+            #time-control-dock { width: 92%; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- GLOBAL PARTICLES -->
-    <div id="particles-container"></div>
+    <div id="portal-flash"></div>
+    <div id="map-tooltip"></div>
 
     <!-- 1. LANDING PAGE -->
     <section id="landing-page">
-        <div class="landing-content">
-            <i class="fas fa-tree landing-icon"></i>
-            <div class="landing-title-small">Deep Learning Based Application</div>
-            <h1 class="landing-title-main">Classification of <br>Deforestation</h1>
-            <button id="enter-app-btn" class="btn-enter">
-                Explore Dashboard <i class="fas fa-arrow-right"></i>
-            </button>
+        <div id="hero-canvas-container"></div>
+        
+        <div class="hero-content">
+            <h1 class="landing-title-main">
+                Deep Learning Based Application for Classification of <span class="highlight">Deforestation</span>
+            </h1>
+            <div class="hero-btns">
+                <button id="enter-app-btn" class="btn-main">
+                    Explore Dashboard <i class="fas fa-bolt"></i>
+                </button>
+            </div>
         </div>
     </section>
 
     <!-- 2. DASHBOARD CONTAINER -->
     <div id="dashboard-container">
         <header>
-            <div class="header-item" id="nav-state">
-                <i class="fas fa-tree"></i><span>STATE ANALYSIS</span>
-            </div>
-            <div class="header-item" id="nav-district">
-                <i class="fas fa-chart-bar"></i><span>DISTRICT ANALYSIS</span>
-            </div>
-            <div class="header-item" id="nav-map">
-                <i class="fas fa-cube"></i><span>3D VISUALIZATION</span>
-            </div>
+            <div class="header-item" id="nav-state">STATE ANALYSIS</div>
+            <div class="header-item" id="nav-district">DISTRICT ANALYSIS</div>
+            <div class="header-item" id="nav-map">3D VISUALIZATION</div>
         </header>
 
-        <main style="width: 100%; display:flex; flex-direction:column; align-items:center;">
-            <div class="main-title">
-                <p>DEEP LEARNING BASED FOREST CLASSIFICATION SYSTEM</p>
-            </div>
-
+        <main class="main-content">
             <!-- PAGE 1: STATE ANALYSIS -->
             <section id="state-analysis-page" class="page-section active">
-
-                <!-- REMOVED: Adjust timeline text block -->
-
-                <div class="chart-area-wrapper hidden" id="state-chart-area">
-                    <div class="chart-toggles">
-                        <button id="state-pie-toggle" class="active">Composition</button>
-                        <button id="state-line-toggle">Trend</button>
-                    </div>
-                    <div class="chart-wrapper" id="state-pie-wrapper">
-                        <div class="chart-container"><canvas id="forestChart"></canvas></div>
-                        <div class="custom-legend" id="customLegend"></div>
-                    </div>
-                    <div class="chart-wrapper hidden" id="state-line-wrapper">
-                        <div class="line-chart-container"><canvas id="stateLineChart"></canvas></div>
-                    </div>
-                </div>
+                <div class="chart-container"><canvas id="forestChart"></canvas></div>
+                <div class="chart-container"><canvas id="stateLineChart"></canvas></div>
             </section>
 
             <!-- PAGE 2: DISTRICT ANALYSIS -->
             <section id="district-analysis-page" class="page-section">
-                <div class="analysis-controls">
-                    <label for="district-select">Select District</label>
-                    <select id="district-select" class="styled-select" required>
-                        <option value="" disabled selected>-- Select a District --</option>
-                    </select>
+                <!-- Wrapper for Row stacking on mobile -->
+                <div style="display: flex; width: 100%; gap: 30px; flex-wrap: wrap;">
+                    <div class="chart-container" style="flex: 0 0 220px; min-width: 200px; height: 350px; padding: 25px 20px; align-self: flex-start;">
+                        <label style="display:block; margin-bottom:12px; font-weight:700; color:var(--met-gold); text-transform:uppercase; letter-spacing:2px; font-size: 0.7rem;">Select District</label>
+                        <select id="district-select" style="width:100%; padding:10px; background:rgba(15,23,42,0.8); color:#fff; border:2px solid var(--met-gold); border-radius:8px; font-family:inherit; cursor:pointer; font-size: 0.85rem;">
+                            <option value="" disabled selected>-- Choose --</option>
+                        </select>
+                    </div>
+                    <div class="chart-container" style="flex: 1; height: 350px;"><canvas id="districtForestChart"></canvas></div>
                 </div>
-
-                <div class="chart-area-wrapper hidden" id="district-chart-area">
-                    <div class="chart-toggles">
-                        <button id="district-pie-toggle" class="active">Composition</button>
-                        <button id="district-line-toggle">Trend</button>
-                    </div>
-                    <div class="chart-wrapper" id="district-pie-wrapper">
-                        <div class="chart-container"><canvas id="districtForestChart"></canvas></div>
-                        <div class="custom-legend" id="districtCustomLegend"></div>
-                    </div>
-                    <div class="chart-wrapper hidden" id="district-line-wrapper">
-                        <div class="line-chart-container"><canvas id="districtLineChart"></canvas></div>
-                    </div>
-                </div>
+                <div class="chart-container" style="flex: 1 1 100%; height: 480px;"><canvas id="districtLineChart"></canvas></div>
             </section>
 
             <!-- PAGE 3: 3D MAP -->
-            <section id="map-3d-page" class="page-section">
-                <div id="canvas-container">
-                    <!-- REMOVED: Forest Density Legend -->
-                    <div id="tooltip" class="map-tooltip"></div>
-                </div>
+            <section id="map-3d-page" class="page-section" style="flex-direction:column; align-items:center;">
+                <div id="canvas-container" style="width:100%; height:750px; border-radius:32px; overflow:hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8); border: 4px solid var(--met-gold); position: relative;"></div>
             </section>
         </main>
 
         <!-- TIME CONTROL DOCK -->
         <div id="time-control-dock">
-            <div class="dock-header">
-                <span><i class="far fa-calendar-alt"></i> Year Analysis</span>
+            <div class="slider-header">
+                <span class="slider-label">TIME SCALE</span>
                 <span id="year-display-large">2023</span>
             </div>
-
-            <div class="slider-container">
-                <input type="range" id="global-time-slider" min="2015" max="2025" step="2" value="2023">
-
-                <div class="slider-labels">
-                    <span>2015</span>
-                    <span>2017</span>
-                    <span>2019</span>
-                    <span>2021</span>
-                    <span>2023</span>
-                    <span>2025</span>
-                </div>
-            </div>
+            <input type="range" id="global-time-slider" min="2015" max="2025" step="2" value="2023">
         </div>
     </div>
 
@@ -817,493 +458,413 @@
 
         window.addEventListener("DOMContentLoaded", () => {
 
-            // --- Navigation / Landing Page Logic ---
-            const landingPage = document.getElementById('landing-page');
-            const dashboardContainer = document.getElementById('dashboard-container');
-            const enterBtn = document.getElementById('enter-app-btn');
+            // --- HERO SECTION INITIALIZATION ---
+            let isTransitioning = false;
+            let heroCamera, heroScene, heroRenderer, starField, heroTrees;
 
-            // Spawn Particles
-            const particleContainer = document.getElementById('particles-container');
-            for (let i = 0; i < 40; i++) {
-                const p = document.createElement('div');
-                p.classList.add('particle');
-                const size = Math.random() * 8 + 3;
-                p.style.width = `${size}px`; p.style.height = `${size}px`;
-                p.style.left = `${Math.random() * 100}vw`;
-                const duration = Math.random() * 10 + 5;
-                p.style.animationDuration = `${duration}s`;
-                p.style.animationDelay = `${Math.random() * 5}s`;
-                particleContainer.appendChild(p);
-            }
+            const initHero = () => {
+                const container = document.getElementById('hero-canvas-container');
+                heroScene = new THREE.Scene();
+                heroScene.fog = new THREE.FogExp2(0x020617, 0.035);
+                heroCamera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 0.1, 1500);
+                heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                heroRenderer.setSize(container.clientWidth, container.clientHeight);
+                heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(heroRenderer.domElement);
+                heroCamera.position.set(0, 8, 30);
+                
+                heroScene.add(new THREE.AmbientLight(0x404040, 1.2));
+                const sun = new THREE.DirectionalLight(0x22C55E, 2);
+                sun.position.set(10, 20, 10);
+                heroScene.add(sun);
 
-            enterBtn.addEventListener('click', () => {
-                landingPage.classList.add('hidden');
+                // Stars
+                const starGeo = new THREE.BufferGeometry();
+                const starPos = new Float32Array(6000 * 3);
+                for(let i=0; i<18000; i++) starPos[i] = (Math.random() - 0.5) * 1000;
+                starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+                starField = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.8 }));
+                heroScene.add(starField);
+
+                // Ground
+                const gGeo = new THREE.PlaneGeometry(120, 120, 60, 60);
+                gGeo.rotateX(-Math.PI / 2);
+                const pos = gGeo.attributes.position;
+                for (let i = 0; i < pos.count; i++) {
+                    const x = pos.getX(i); const z = pos.getZ(i);
+                    pos.setY(i, Math.sin(x * 0.2) * Math.cos(z * 0.2) * 2.8);
+                }
+                gGeo.computeVertexNormals();
+                heroScene.add(new THREE.Mesh(gGeo, new THREE.MeshPhongMaterial({ color: 0x050a0f, flatShading: true })));
+
+                // Trees
+                heroTrees = new THREE.Group();
+                const createTree = () => {
+                    const g = new THREE.Group();
+                    const t = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.2, 0.8, 6), new THREE.MeshPhongMaterial({ color: 0x1a0f0a }));
+                    t.position.y = 0.4; g.add(t);
+                    const leafMat = new THREE.MeshPhongMaterial({ color: 0x15803d, flatShading: true });
+                    for(let i=0; i<3; i++) {
+                        const leaf = new THREE.Mesh(new THREE.ConeGeometry(0.8 - i*0.15, 1.5, 6), leafMat);
+                        leaf.position.y = 1.3 + i*0.6; g.add(leaf);
+                    }
+                    g.userData.sway = Math.random() * Math.PI * 2;
+                    return g;
+                };
+                for(let i=0; i<400; i++) {
+                    const tr = createTree();
+                    const x = (Math.random() - 0.5) * 130; const z = (Math.random() - 0.5) * 130;
+                    if(Math.abs(x) < 5 && Math.abs(z) < 15) continue;
+                    tr.position.set(x, Math.sin(x * 0.2) * Math.cos(z * 0.2) * 2.8, z);
+                    tr.scale.setScalar(0.7 + Math.random() * 0.8);
+                    heroTrees.add(tr);
+                }
+                heroScene.add(heroTrees);
+
+                const animate = (t) => {
+                    requestAnimationFrame(animate);
+                    const time = t * 0.001;
+                    if (!isTransitioning) {
+                        heroCamera.position.x = Math.sin(time * 0.12) * 6;
+                        heroCamera.position.z = 30 + Math.cos(time * 0.08) * 4;
+                        heroCamera.lookAt(0, 4, -10);
+                        starField.rotation.y = time * 0.01;
+                    } else {
+                        heroCamera.position.z -= 4.2; heroCamera.fov += 1.8; heroCamera.updateProjectionMatrix();
+                        starField.position.z += 20;
+                    }
+                    heroTrees.children.forEach(tr => tr.rotation.z = Math.sin(time * 0.8 + tr.userData.sway) * 0.04);
+                    heroRenderer.render(heroScene, heroCamera);
+                };
+                animate(0);
+            };
+            initHero();
+
+            // --- UI HANDLERS ---
+            const landing = document.getElementById('landing-page');
+            const dashboard = document.getElementById('dashboard-container');
+            const portal = document.getElementById('portal-flash');
+            
+            document.getElementById('enter-app-btn').addEventListener('click', () => {
+                isTransitioning = true;
+                landing.classList.add('transitioning');
+                setTimeout(() => portal.style.opacity = '1', 400);
                 setTimeout(() => {
-                    landingPage.style.display = 'none';
-                    dashboardContainer.classList.add('visible');
-                    // Initialize Default View
+                    landing.style.display = 'none';
+                    dashboard.classList.add('visible');
+                    portal.style.opacity = '0';
                     handleGlobalTimeUpdate("2023");
-                }, 500);
+                    // Highlighting the State Analysis button by default
+                    document.getElementById('nav-state').classList.add('active-nav');
+                }, 1000);
             });
 
-
-            // --- Global Elements ---
-            const navState = document.getElementById('nav-state');
-            const navDistrict = document.getElementById('nav-district');
-            const navMap = document.getElementById('nav-map');
-            const allPages = document.querySelectorAll('.page-section');
-            const allNavItems = document.querySelectorAll('.header-item');
-
-            // --- State Page Elements ---
-            const stateChartArea = document.getElementById('state-chart-area');
-            const statePieWrapper = document.getElementById('state-pie-wrapper');
-            const stateLineWrapper = document.getElementById('state-line-wrapper');
-            const statePieToggle = document.getElementById('state-pie-toggle');
-            const stateLineToggle = document.getElementById('state-line-toggle');
-            const stateCtx = document.getElementById("forestChart").getContext("2d");
-            const stateLineCtx = document.getElementById("stateLineChart").getContext("2d");
-            const stateLegendContainer = document.getElementById("customLegend");
-            let stateChartInstance = null;
-            let stateLineChartInstance = null;
-
-            // --- District Page Elements ---
-            const pageDistrictSelect = document.getElementById('district-select');
-            const districtChartArea = document.getElementById('district-chart-area');
-            const districtPieWrapper = document.getElementById('district-pie-wrapper');
-            const districtLineWrapper = document.getElementById('district-line-wrapper');
-            const districtPieToggle = document.getElementById('district-pie-toggle');
-            const districtLineToggle = document.getElementById('district-line-toggle');
-            const districtCtx = document.getElementById('districtForestChart').getContext('2d');
-            const districtLineCtx = document.getElementById('districtLineChart').getContext('2d');
-            const districtLegendContainer = document.getElementById('districtCustomLegend');
-            let districtChartInstance = null;
-            let districtLineChartInstance = null;
-
-            // --- 3D Map Elements ---
-            const canvasContainer = document.getElementById('canvas-container');
-            const tooltip = document.getElementById('tooltip');
-            let mapInitialized = false;
-
-            // --- Data ---
-            const years = ["2015", "2017", "2019", "2021", "2023", "2025"];
-            const API_BASE = "/api/analysis";
-            const districts = [
-                "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri",
-                "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur",
-                "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", "Nilgiris",
-                "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga",
-                "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli",
-                "Tirupathur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore",
-                "Viluppuram", "Virudhunagar"
-            ];
-
-            const chartLabels = ["Forest", "Land", "Water"];
-
-
-            const getCSSVar = (varName) => getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-            const chartColors = [getCSSVar('--primary'), getCSSVar('--warning'), getCSSVar('--info')];
-
-            // --- Helper Functions ---
-            async function fetchDistrictData(district) {
-                const res = await fetch(`${API_BASE}/district/${district}`);
-                return await res.json();
-            }
-
-            async function fetchStateData() {
-                const res = await fetch(`${API_BASE}/state`);
-                return await res.json();
-            }
-
-
-            function buildCustomLegend(containerElement, labels, backgroundColors, data) {
-                containerElement.innerHTML = '';
-                labels.forEach((label, i) => {
-                    const item = document.createElement("div");
-                    item.classList.add("legend-item");
-                    const colorBox = document.createElement("div");
-                    colorBox.classList.add("legend-color");
-                    colorBox.style.backgroundColor = backgroundColors[i];
-                    const text = document.createElement("span");
-                    text.innerText = `${label}: ${data[i]}%`;
-                    item.appendChild(colorBox);
-                    item.appendChild(text);
-                    containerElement.appendChild(item);
+            // Navigation
+            const navItems = document.querySelectorAll('.header-item');
+            const pages = document.querySelectorAll('.page-section');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetId = item.id === 'nav-state' ? 'state-analysis-page' : 
+                                   item.id === 'nav-district' ? 'district-analysis-page' : 'map-3d-page';
+                    pages.forEach(p => p.classList.remove('active'));
+                    navItems.forEach(n => n.classList.remove('active-nav'));
+                    document.getElementById(targetId).classList.add('active');
+                    item.classList.add('active-nav');
+                    if(targetId === 'map-3d-page' && !window.mapInit) { initMap(); window.mapInit = true; }
                 });
-            }
-
-            function createOrUpdatePieChart(chartInstance, context, wrapper, legend, title, data) {
-                if (chartInstance) {
-                    chartInstance.data.datasets[0].data = data;
-                    chartInstance.options.plugins.title.text = title;
-                    chartInstance.update();
-                } else {
-                    chartInstance = new Chart(context, {
-                        type: "pie",
-                        data: {
-                            labels: chartLabels,
-                            datasets: [{
-                                data: data,
-                                backgroundColor: chartColors,
-                                borderColor: 'transparent',
-                                borderWidth: 0
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                title: { display: true, text: title, color: getCSSVar('--text-light'), font: { size: 16, weight: '600' } },
-                                legend: { display: false },
-                                tooltip: {
-                                    enabled: true, backgroundColor: "#111", titleColor: getCSSVar('--primary'), bodyColor: getCSSVar('--text-light'), borderColor: getCSSVar('--primary'), borderWidth: 1,
-                                    callbacks: { label: (tooltipItem) => `${tooltipItem.label}: ${tooltipItem.raw}%` }
-                                }
-                            },
-                            animation: { animateRotate: true, duration: 1000 }
-                        }
-                    });
-                }
-                buildCustomLegend(legend, chartLabels, chartColors, data);
-                return chartInstance;
-            }
-
-            function createOrUpdateLineChart(chartInstance, context, title, data) {
-                const chartDataLabels = Object.keys(data);
-                const chartDataValues = Object.values(data);
-                if (chartInstance) {
-                    chartInstance.data.labels = chartDataLabels;
-                    chartInstance.data.datasets[0].data = chartDataValues;
-                    chartInstance.options.plugins.title.text = title;
-                    chartInstance.update();
-                } else {
-                    chartInstance = new Chart(context, {
-                        type: 'line',
-                        data: {
-                            labels: chartDataLabels,
-                            datasets: [{
-                                label: 'Forest Cover %', data: chartDataValues, borderColor: getCSSVar('--primary'), backgroundColor: 'rgba(25, 195, 125, 0.2)', fill: true, tension: 0.1, borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true, maintainAspectRatio: false,
-                            plugins: {
-                                title: { display: true, text: title, color: getCSSVar('--text-light'), font: { size: 16, weight: '600' } },
-                                legend: { display: false },
-                                tooltip: { enabled: true, backgroundColor: "#111", titleColor: getCSSVar('--primary'), bodyColor: getCSSVar('--text-light'), borderColor: getCSSVar('--primary'), borderWidth: 1, callbacks: { label: (tooltipItem) => `Forest Cover: ${tooltipItem.raw}%` } }
-                            },
-                            scales: {
-                                y: { beginAtZero: false, ticks: { color: getCSSVar('--text-medium') }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
-                                x: { ticks: { color: getCSSVar('--text-medium') }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
-                            }
-                        }
-                    });
-                }
-                return chartInstance;
-            }
-
-            // --- Page Navigation Logic ---
-            function showPage(pageId, activeNav) {
-                allPages.forEach(page => page.classList.remove('active'));
-                allNavItems.forEach(nav => nav.classList.remove('active-nav'));
-                document.getElementById(pageId).classList.add('active');
-                activeNav.classList.add('active-nav');
-
-                if (pageId === 'map-3d-page' && !mapInitialized) {
-                    initThreeJS();
-                    mapInitialized = true;
-                }
-            }
-
-            navState.addEventListener('click', () => showPage('state-analysis-page', navState));
-            navDistrict.addEventListener('click', () => showPage('district-analysis-page', navDistrict));
-            navMap.addEventListener('click', () => showPage('map-3d-page', navMap));
-
-            // --- Chart Toggles ---
-            statePieToggle.addEventListener('click', () => { statePieWrapper.classList.remove('hidden'); stateLineWrapper.classList.add('hidden'); statePieToggle.classList.add('active'); stateLineToggle.classList.remove('active'); });
-            stateLineToggle.addEventListener('click', () => { statePieWrapper.classList.add('hidden'); stateLineWrapper.classList.remove('hidden'); statePieToggle.classList.remove('active'); stateLineToggle.classList.add('active'); });
-            districtPieToggle.addEventListener('click', () => { districtPieWrapper.classList.remove('hidden'); districtLineWrapper.classList.add('hidden'); districtPieToggle.classList.add('active'); districtLineToggle.classList.remove('active'); });
-            districtLineToggle.addEventListener('click', () => { districtPieWrapper.classList.add('hidden'); districtLineWrapper.classList.remove('hidden'); districtPieToggle.classList.remove('active'); districtLineToggle.classList.add('active'); });
-
+            });
 
             // ==========================================
-            //  SIMPLIFIED: STATIC TIME SLIDER LOGIC
+            //  CORE DATA PART (STRICTLY PRESERVED)
             // ==========================================
-
+   
+// Replace your old API_BASE with this:
+const API_BASE = window.location.origin + "/api/analysis";
+            const districts = [
+    "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", 
+    "Dharmapuri", "Dindigul", "Erode", "Kalakurichi", "Kancheepuram", 
+    "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Mayiladudurai", 
+    "Nagapattinam", "Namakkal", "Nilgris", "Perambalur", "Pudukkottai", 
+    "Ramanathapuram", "Ranipet", "Salem", "Sivagangai", "Tenkasi", 
+    "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", 
+    "Tirupattur", "Tiruppur", "Tiruvallur", "Tiruvanamalai", "Tiruvarur", 
+    "Vellore", "viluppuram", "virudhunagar"
+];
+async function fetchDistrictData(district) {
+    const res = await fetch(`${API_BASE}/district/${district}`);
+    return await res.json();
+}
+            // Global State for Charts
+            let charts = {};
             const timeSlider = document.getElementById('global-time-slider');
             const yearDisplay = document.getElementById('year-display-large');
+            const districtSelect = document.getElementById('district-select');
 
-            // Centralized Update Function (Reused)
-            async function handleGlobalTimeUpdate(year) {
-                // 1. Update Display
+            // --- CHART HELPERS ---
+            function updateDoughnut(id, data) {
+    const ctx = document.getElementById(id).getContext('2d');
+    if (charts[id]) charts[id].destroy();
+    charts[id] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Forest', 'Land', 'Water'],
+            datasets: [{ 
+                data: data, 
+                backgroundColor: ['#00D084', '#F72585', '#4361EE'], 
+                borderWidth: 0,
+                hoverBorderColor: '#ffffff',
+hoverBorderWidth: 2,
+                // --- ADD THESE TWO LINES ---
+                hoverOffset: 30,      // This "pushes" the segment out by 30 pixels
+                //spacing: 5            // Adds a small gap between segments for a modern look
+            }]
+        },
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            cutout: '75%',
+            // Optional: Smooth out the animation
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            },
+            plugins: { 
+                legend: { 
+                    position: 'bottom', 
+                    labels: { color: '#bdc3c7', font: { weight: '600' } } 
+                } 
+            }
+        }
+    });
+}
+
+         function updateTrend(id, labels, values) {
+    const ctx = document.getElementById(id).getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(0, 208, 132, 0.2)');
+    gradient.addColorStop(1, 'transparent');
+    
+    if (charts[id]) charts[id].destroy();
+    
+    charts[id] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{ 
+                data: values, 
+                borderColor: '#00D084', 
+                borderWidth: 4, 
+                pointBackgroundColor: '#fff', 
+                fill: true, 
+                backgroundColor: gradient, 
+                tension: 0.4 
+            }]
+        },
+        options: {
+            responsive: true, 
+            maintainAspectRatio: false,
+            scales: { 
+                y: { 
+                    grid: { color: 'rgba(255,255,255,0.05)' }, 
+                    ticks: { color: '#94A3B8' },
+                    // --- Y-AXIS LABEL ---
+                    title: {
+                        display: true,
+                        text: 'Forest Coverage Percentage',
+                        color: '#94A3B8',
+                        font: { size: 12, weight: '600', family: 'Poppins' }
+                    }
+                },
+                x: { 
+                    grid: { display: false }, 
+                    ticks: { color: '#94A3B8' },
+                    // --- X-AXIS LABEL ---
+                    title: {
+                        display: true,
+                        text: 'Year',
+                        color: '#94A3B8',
+                        font: { size: 12, weight: '600', family: 'Poppins' }
+                    }
+                }
+            },
+            plugins: { 
+                legend: { display: false } 
+            }
+        }
+    });
+}
+            // --- CENTRAL UPDATE LOGIC ---
+async function handleGlobalTimeUpdate(year) {
                 yearDisplay.innerText = year;
                 timeSlider.value = year;
 
-                /* =========================
-                   2. STATE ANALYSIS (REAL DB)
-                   ========================= */
-                const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
-
-
-                const stateYearData = stateData.find(d => d.id.year == year);
-                if (!stateYearData) return;
-
-                const statePieTitle = `State Composition (${year})`;
-                const statePieData = [
-                    stateYearData.forestPercentage,
-                    stateYearData.landPercentage,
-                    stateYearData.waterPercentage
-                ];
-
-                stateChartInstance = createOrUpdatePieChart(
-                    stateChartInstance,
-                    stateCtx,
-                    statePieWrapper,
-                    stateLegendContainer,
-                    statePieTitle,
-                    statePieData
-                );
-
-                const stateLineTitle = `State Forest Trend (2015-${year})`;
-                const stateLineData = {};
-                stateData
-                    .filter(d => d.id.year <= year)
-                    .forEach(d => stateLineData[d.id.year] = d.forestPercentage);
-
-                stateLineChartInstance = createOrUpdateLineChart(
-                    stateLineChartInstance,
-                    stateLineCtx,
-                    stateLineTitle,
-                    stateLineData
-                );
-
-                stateChartArea.classList.remove('hidden');
-
-                /* ============================
-                   3. DISTRICT ANALYSIS (REAL DB)
-                   ============================ */
-                const selectedDistrict = pageDistrictSelect.value;
-
-                if (selectedDistrict) {
-                    const districtData = await fetchDistrictData(selectedDistrict);
-
-                    const districtYearData = districtData.find(d => d.id.year == year);
-                    if (!districtYearData) return;
-
-                    const dPieTitle = `${selectedDistrict} Composition (${year})`;
-                    const dPieData = [
-                        districtYearData.forestPercentage,
-                        districtYearData.landPercentage,
-                        districtYearData.waterPercentage
-                    ];
-
-                    districtChartInstance = createOrUpdatePieChart(
-                        districtChartInstance,
-                        districtCtx,
-                        districtPieWrapper,
-                        districtLegendContainer,
-                        dPieTitle,
-                        dPieData
-                    );
-
-                    const dLineTitle = `${selectedDistrict} Forest Trend (2015-${year})`;
-                    const dLineData = {};
-                    districtData
-                        .filter(d => d.id.year <= year)
-                        .forEach(d => dLineData[d.id.year] = d.forestPercentage);
-
-                    districtLineChartInstance = createOrUpdateLineChart(
-                        districtLineChartInstance,
-                        districtLineCtx,
-                        dLineTitle,
-                        dLineData
-                    );
-
-                    districtChartArea.classList.remove('hidden');
+                // 1. STATE DATA (Tamil Nadu Overview)
+                try {
+                    // Fetching from /api/analysis/all
+                    const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
+                    
+                    // Match the year inside the 'id' object
+                    const sd = stateData.find(d => d.id.year == year);
+                    if (sd) {
+                        updateDoughnut('forestChart', [sd.forestPercentage, sd.landPercentage, sd.waterPercentage]);
+                        
+                        // Build trend lines using id.year
+                        const trendLabels = stateData.filter(d => d.id.year <= year).map(d => d.id.year);
+                        const trendValues = stateData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
+                        updateTrend('stateLineChart', trendLabels, trendValues);
+                    }
+                } catch(e) { 
+                    console.error("State Data error:", e); 
                 }
 
-                /* ===========
-                   4. 3D MAP
-                   =========== */
-                if (scene && districtMeshes.length > 0) {
-                    update3DMapData(year);
+                // 2. DISTRICT DATA (Specific Selection)
+                const selected = districtSelect.value;
+                if (selected) {
+                    try {
+                        const distData = await fetchDistrictData(selected);
+                        
+                        // Match the year inside the 'id' object
+                        const dy = distData.find(d => d.id.year == year);
+                        if (dy) {
+                            updateDoughnut('districtForestChart', [dy.forestPercentage, dy.landPercentage, dy.waterPercentage]);
+                            
+                            const dLabels = distData.filter(d => d.id.year <= year).map(d => d.id.year);
+                            const dValues = distData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
+                            updateTrend('districtLineChart', dLabels, dValues);
+                        }
+                    } catch(e) {
+                        console.error("District Data error:", e);
+                    }
                 }
+
+                // 3. 3D MAP
+                if (window.mapUpdate) window.mapUpdate(year);
             }
+            // Event Listeners
+            timeSlider.addEventListener('input', (e) => handleGlobalTimeUpdate(e.target.value));
+            districtSelect.addEventListener('change', () => handleGlobalTimeUpdate(timeSlider.value));
 
-
-            // Simple event listener for the slider
-            timeSlider.addEventListener('input', (e) => {
-                handleGlobalTimeUpdate(e.target.value);
+            // Populate Select
+            districts.forEach(d => {
+                const o = document.createElement('option'); o.value = d; o.innerText = d;
+                districtSelect.appendChild(o);
             });
 
-            // District Select Change Listener
-            pageDistrictSelect.addEventListener('change', () => {
-                handleGlobalTimeUpdate(timeSlider.value);
-            });
+            // --- 3D MAP VISUALS (TAMIL NADU EXTRUSION) ---
+            function initMap() {
+                const cont = document.getElementById('canvas-container');
+                const mScene = new THREE.Scene();
+                const mCam = new THREE.PerspectiveCamera(45, cont.clientWidth / cont.clientHeight, 0.1, 1000);
+                const mRen = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                mRen.setSize(cont.clientWidth, cont.clientHeight);
+                cont.appendChild(mRen.domElement);
+                mCam.position.set(0, 18, 22);
+                const ctrl = new OrbitControls(mCam, mRen.domElement);
+                mScene.add(new THREE.AmbientLight(0xffffff, 0.8));
+                const sun = new THREE.DirectionalLight(0xffffff, 0.5);
+                sun.position.set(10, 20, 10); mScene.add(sun);
 
-            // --- 3D MAP LOGIC ---
+                const tnShape = new THREE.Shape();
+                tnShape.moveTo(9.5, -8); tnShape.lineTo(8.5, -8.8); tnShape.lineTo(2, -7.5); tnShape.lineTo(-3.5, -4.5);
+                tnShape.lineTo(-3, -2); tnShape.lineTo(-1.5, 1.5); tnShape.lineTo(-1, 6.5); tnShape.lineTo(0.5, 10);
+                tnShape.lineTo(4, 7); tnShape.lineTo(6.5, 5); tnShape.lineTo(6, 0.5); tnShape.lineTo(8.5, -1.2);
+                tnShape.lineTo(9.5, -2.2); tnShape.lineTo(9.5, -8);
 
-            const districtMeshes = [];
-            let scene, camera, renderer, floorPoints;
+                const mapGeo = new THREE.ExtrudeGeometry(tnShape, { depth: 0.5, bevelEnabled: true, bevelThickness: 0.2, bevelSize: 0.2 });
+                mapGeo.rotateX(Math.PI / 2);
+                const mapMesh = new THREE.Mesh(mapGeo, new THREE.MeshPhongMaterial({ color: 0x1e293b, shininess: 80, specular: 0xffffff }));
+                mapMesh.position.y = -0.5; mScene.add(mapMesh);
 
-            const mapCoords = {
-                "Chennai": { x: 6, z: -8 }, "Tiruvallur": { x: 5, z: -9 }, "Kanchipuram": { x: 5, z: -7 }, "Chengalpattu": { x: 6, z: -6 },
-                "Vellore": { x: 3, z: -8 }, "Ranipet": { x: 4, z: -8 }, "Tirupathur": { x: 2, z: -7 }, "Tiruvannamalai": { x: 3, z: -6 },
-                "Krishnagiri": { x: 1, z: -8 }, "Dharmapuri": { x: 0, z: -7 }, "Viluppuram": { x: 4, z: -5 }, "Kallakurichi": { x: 2, z: -5 },
-                "Cuddalore": { x: 5, z: -4 }, "Salem": { x: 0, z: -5 }, "Erode": { x: -2, z: -4 }, "Namakkal": { x: 0, z: -3 },
-                "Nilgiris": { x: -4, z: -4 }, "Coimbatore": { x: -4, z: -2 }, "Tiruppur": { x: -2, z: -2 }, "Karur": { x: -1, z: -2 },
-                "Tiruchirappalli": { x: 1, z: -2 }, "Perambalur": { x: 2, z: -3 }, "Ariyalur": { x: 3, z: -3 }, "Thanjavur": { x: 3, z: -1 },
-                "Tiruvarur": { x: 4, z: -1 }, "Nagapattinam": { x: 5, z: -2 }, "Mayiladuthurai": { x: 5, z: -3 }, "Pudukkottai": { x: 2, z: 0 },
-                "Dindigul": { x: -1, z: 0 }, "Theni": { x: -2, z: 2 }, "Madurai": { x: 0, z: 2 }, "Sivaganga": { x: 2, z: 2 },
-                "Virudhunagar": { x: 0, z: 4 }, "Ramanathapuram": { x: 3, z: 4 }, "Tenkasi": { x: -1, z: 6 }, "Tirunelveli": { x: 0, z: 6 },
-                "Thoothukudi": { x: 2, z: 6 }, "Kanyakumari": { x: 0, z: 8 }
-            };
+                const meshes = [];
+                const dGeo = new THREE.CylinderGeometry(0.3, 0.3, 1, 6);
+                
+                const coords = {
+                    "Chennai": { x: 9.5, z: -8 }, "Tiruvallur": { x: 8.5, z: -8.8 }, "Kancheepuram": { x: 8, z: -7 }, "Chengalpattu": { x: 8.8, z: -6.5 },
+                    "Vellore": { x: 5, z: -7.5 }, "Ranipet": { x: 6.5, z: -7.5 }, "Tirupattur": { x: 4, z: -6.5 }, "Tiruvanamalai": { x: 5.5, z: -5.5 },
+                    "Krishnagiri": { x: 2, z: -7.5 }, "Dharmapuri": { x: 2.5, z: -6.2 }, "Viluppuram": { x: 7, z: -5 }, "Kalakurichi": { x: 5, z: -4.5 },
+                    "Cuddalore": { x: 8.5, z: -4.2 }, "Salem": { x: 3, z: -4.5 }, "Erode": { x: 0.5, z: -4.2 }, "Namakkal": { x: 2.8, z: -3 },
+                    "Nilgris": { x: -3.5, z: -4.5 }, "Coimbatore": { x: -3, z: -2 }, "Tiruppur": { x: -1, z: -2.5 }, "Karur": { x: 1.5, z: -2.2 },
+                    "Tiruchirappalli": { x: 4, z: -2.5 }, "Perambalur": { x: 5.5, z: -3.2 }, "Ariyalur": { x: 6.8, z: -3.2 }, "Thanjavur": { x: 7, z: -1.5 },
+                    "Tiruvarur": { x: 8.5, z: -1.2 }, "Nagapattinam": { x: 9.5, z: -2.2 }, "Mayiladudurai": { x: 9.2, z: -3 }, "Pudukkottai": { x: 6, z: 0.5 },
+                    "Dindigul": { x: 0.5, z: -0.5 }, "Theni": { x: -1.5, z: 1.5 }, "Madurai": { x: 2, z: 1.5 }, "Sivagangai": { x: 5.5, z: 1.8 },
+                    "Virudhunagar": { x: 1.5, z: 4 }, "Ramanathapuram": { x: 6.5, z: 5 }, "Tenkasi": { x: -1, z: 6.5 }, "Tirunelveli": { x: 1.5, z: 7.5 },
+                    "Thoothukudi": { x: 4, z: 7 }, "Kanyakumari": { x: 0.5, z: 10 }
+                };
 
-            function initThreeJS() {
-                scene = new THREE.Scene();
-                scene.fog = new THREE.FogExp2(0x101010, 0.035);
-                camera = new THREE.PerspectiveCamera(45, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-                camera.position.set(0, 15, 20);
-                camera.lookAt(0, 0, 0);
-                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                canvasContainer.appendChild(renderer.domElement);
-                const controls = new OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true; controls.dampingFactor = 0.05; controls.minDistance = 10; controls.maxDistance = 50; controls.maxPolarAngle = Math.PI / 2.2;
-                scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-                const dirLight = new THREE.DirectionalLight(0xffffff, 1); dirLight.position.set(10, 20, 10); scene.add(dirLight);
-                const pointLight = new THREE.PointLight(0x19c37d, 2, 50); pointLight.position.set(0, 5, 0); scene.add(pointLight);
+                districts.forEach(d => {
+                    const material = new THREE.MeshPhongMaterial({ color: 0x00D084, shininess: 50, emissive: 0x000000 });
+                    const m = new THREE.Mesh(dGeo, material);
+                    const pos = coords[d] || { x: (Math.random()-0.5)*5, z: (Math.random()-0.5)*5 };
+                    m.position.set(pos.x, 0, pos.z);
+                    m.userData = { name: d, percent: 0 };
+                    mScene.add(m); meshes.push(m);
+                });
 
-                const floorVertices = [];
-                for (let i = -20; i <= 20; i++) { for (let j = -20; j <= 20; j++) { floorVertices.push(i * 1.5, -0.5, j * 1.5); } }
-                const floorGeometry = new THREE.BufferGeometry();
-                floorGeometry.setAttribute('position', new THREE.Float32BufferAttribute(floorVertices, 3));
-                const floorMaterial = new THREE.PointsMaterial({ color: 0x19c37d, size: 0.08, transparent: true, opacity: 0.3 });
-                floorPoints = new THREE.Points(floorGeometry, floorMaterial);
-                scene.add(floorPoints);
-
-                generateDistrictMeshes();
-
-                const raycaster = new THREE.Raycaster();
+               window.mapUpdate = async (year) => {
+    for(let m of meshes) {
+        try {
+            const data = await fetchDistrictData(m.userData.name);
+            // Fix: Changed 'it.id.year' to 'it.year'
+            const y = data.find(it => it.id.year == year);
+            if(y) {
+                                const forestVal = y.forestPercentage;
+                                const h = 0.5 + (forestVal / 12);
+                                m.scale.y = h; 
+                                m.position.y = h/2;
+                                m.userData.percent = forestVal.toFixed(2);
+                                
+                                if(forestVal < 15) m.material.color.setHex(0xf39c12);
+                                else if(forestVal < 30) m.material.color.setHex(0xbadc58);
+                                else m.material.color.setHex(0x00D084);
+                            }
+                        } catch(e) {
+                            const h = 1.5 + Math.random() * 2;
+                            m.scale.y = h; m.position.y = h/2;
+                            m.userData.percent = (h * 8).toFixed(1);
+                        }
+                    }
+                };
+                
+                const ray = new THREE.Raycaster();
                 const mouse = new THREE.Vector2();
+                const tip = document.getElementById('map-tooltip');
 
-                function onPointerMove(event) {
-                    const rect = renderer.domElement.getBoundingClientRect();
-                    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-                    raycaster.setFromCamera(mouse, camera);
-                    const intersects = raycaster.intersectObjects(districtMeshes);
+                cont.addEventListener('mousemove', (e) => {
+                    const r = cont.getBoundingClientRect();
+                    mouse.x = ((e.clientX - r.left) / cont.clientWidth) * 2 - 1;
+                    mouse.y = -((e.clientY - r.top) / cont.clientHeight) * 2 + 1;
+                    tip.style.left = (e.clientX + 20) + 'px';
+                    tip.style.top = (e.clientY + 20) + 'px';
+                });
 
-                    if (intersects.length > 0) {
-                        const object = intersects[0].object;
-                        document.body.style.cursor = 'pointer';
-                        tooltip.style.opacity = 1;
-                        tooltip.style.left = event.clientX + 'px';
-                        tooltip.style.top = event.clientY + 'px';
-                        tooltip.innerHTML = `<strong>${object.userData.districtName}</strong><br>Forest: ${object.userData.forestValue}%`;
+                const loop = () => {
+                    requestAnimationFrame(loop);
+                    ray.setFromCamera(mouse, mCam);
+                    const hits = ray.intersectObjects(meshes);
+                    
+                    if(hits.length > 0) {
+                        const target = hits[0].object;
+                        tip.style.display = 'block';
+                        tip.innerHTML = `<b>${target.userData.name}</b>Forest Cover: <span>${target.userData.percent}%</span>`;
+                        target.material.emissive.setHex(0x113311);
+                        meshes.forEach(m => { if(m !== target) m.material.emissive.setHex(0x000000); });
                     } else {
-                        document.body.style.cursor = 'default';
-                        tooltip.style.opacity = 0;
+                        tip.style.display = 'none';
+                        meshes.forEach(m => m.material.emissive.setHex(0x000000));
                     }
-                }
-
-                function onClick(event) {
-                    const rect = renderer.domElement.getBoundingClientRect();
-                    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-                    raycaster.setFromCamera(mouse, camera);
-                    const intersects = raycaster.intersectObjects(districtMeshes);
-
-                    if (intersects.length > 0) {
-                        const object = intersects[0].object;
-                        pageDistrictSelect.value = object.userData.districtName;
-                        handleGlobalTimeUpdate(timeSlider.value);
-                        showPage('district-analysis-page', navDistrict);
-                        setTimeout(() => { document.getElementById('district-chart-area').scrollIntoView({ behavior: 'smooth' }); }, 100);
-                    }
-                }
-
-                canvasContainer.addEventListener('mousemove', onPointerMove);
-                canvasContainer.addEventListener('click', onClick);
-
-                function animate() {
-                    requestAnimationFrame(animate);
-                    controls.update();
-                    if (floorPoints) floorPoints.rotation.y += 0.0005;
-                    renderer.render(scene, camera);
-                }
-                animate();
-
+                    mRen.render(mScene, mCam);
+                    ctrl.update();
+                };
+                loop();
+                
                 window.addEventListener('resize', () => {
-                    if (camera && renderer) {
-                        camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-                        camera.updateProjectionMatrix();
-                        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-                    }
+                    mCam.aspect = cont.clientWidth / cont.clientHeight;
+                    mCam.updateProjectionMatrix();
+                    mRen.setSize(cont.clientWidth, cont.clientHeight);
                 });
+                
+                window.mapUpdate(timeSlider.value);
             }
-
-            function generateDistrictMeshes() {
-                const hexRadius = 0.8;
-                const geometry = new THREE.CylinderGeometry(hexRadius, hexRadius, 1, 6);
-
-                districts.forEach(district => {
-                    const coords = mapCoords[district] || { x: (Math.random() - 0.5) * 10, z: (Math.random() - 0.5) * 10 };
-                    const material = new THREE.MeshPhongMaterial({ color: 0x19c37d, flatShading: true, shininess: 30 });
-                    const mesh = new THREE.Mesh(geometry, material);
-                    mesh.position.x = coords.x * 1.8;
-                    mesh.position.z = coords.z * 1.8;
-                    mesh.position.y = 0;
-                    mesh.userData = { districtName: district, forestValue: 0 };
-                    scene.add(mesh);
-                    districtMeshes.push(mesh);
-                });
-
-                // Initial data load for map
-                update3DMapData(timeSlider.value);
-            }
-
-            // MODIFIED: Accepts year argument
-            async function update3DMapData(year) {
-                for (const mesh of districtMeshes) {
-                    const district = mesh.userData.districtName;
-
-                    const data = await fetchDistrictData(district);
-                    const yearData = data.find(d => d.id.year == year);
-                    if (!yearData) continue;
-
-                    const forestVal = yearData.forestPercentage;
-                    mesh.userData.forestValue = forestVal;
-
-                    const targetHeight = 0.5 + (forestVal / 20);
-                    mesh.scale.set(1, targetHeight, 1);
-                    mesh.position.y = targetHeight / 2;
-
-                    const color = new THREE.Color();
-                    if (forestVal < 20) color.setHex(0xf39c12);
-                    else if (forestVal < 40) color.setHex(0xbadc58);
-                    else if (forestVal < 60) color.setHex(0x19c37d);
-                    else color.setHex(0x006400);
-
-                    mesh.material.color = color;
-                }
-            }
-
-
-            // --- Initial Setup ---
-            navState.classList.add('active-nav');
-
-            // Populate District dropdown
-            districts.forEach(district => {
-                const option = document.createElement('option');
-                option.value = district;
-                option.text = district;
-                pageDistrictSelect.appendChild(option);
-            });
-
-            // Generate Data
-
-
         });
     </script>
 </body>
