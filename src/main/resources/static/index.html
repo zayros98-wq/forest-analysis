@@ -699,20 +699,37 @@ async function handleGlobalTimeUpdate(year) {
     timeSlider.value = year;
 
     // 1. STATE DATA (Tamil Nadu Overview)
-    try {
-        const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
+ // 1. STATE DATA (Tamil Nadu Overview)
+try {
+    const stateRawData = await fetch(`${API_BASE}/all`).then(r => r.json());
+    
+    // Group all districts by year to get the State average
+    const stateAverages = {};
+    stateRawData.forEach(d => {
+        const y = d.id.year;
+        if (!stateAverages[y]) stateAverages[y] = { sum: 0, count: 0, land: 0, water: 0 };
+        stateAverages[y].sum += d.forestPercentage;
+        stateAverages[y].land += d.landPercentage;
+        stateAverages[y].water += d.waterPercentage;
+        stateAverages[y].count += 1;
+    });
+
+    // Extract the average for the CURRENT selected year (for the Pie Chart)
+    const currentYearAvg = stateAverages[year];
+    if (currentYearAvg) {
+        const avgForest = currentYearAvg.sum / currentYearAvg.count;
+        const avgLand = currentYearAvg.land / currentYearAvg.count;
+        const avgWater = currentYearAvg.water / currentYearAvg.count;
+        updateDoughnut('forestChart', [avgForest, avgLand, avgWater]);
+
+        // Fix the "Hairball": Build a clean State trend line (One point per year)
+        const sortedYears = Object.keys(stateAverages).sort((a, b) => a - b).filter(y => y <= year);
+        const trendLabels = sortedYears;
+        const trendValues = sortedYears.map(y => stateAverages[y].sum / stateAverages[y].count);
         
-        // Match the year for the Pie Chart
-        const sd = stateData.find(d => d.id.year == year);
-        if (sd) {
-            updateDoughnut('forestChart', [sd.forestPercentage, sd.landPercentage, sd.waterPercentage]);
-            
-            // Build State trend lines (State still uses full objects, so we keep .id.year)
-            const trendLabels = stateData.filter(d => d.id.year <= year).map(d => d.id.year);
-            const trendValues = stateData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
-            updateTrend('stateLineChart', trendLabels, trendValues);
-        }
-    } catch(e) { console.error("State error:", e); }
+        updateTrend('stateLineChart', trendLabels, trendValues);
+    }
+} catch(e) { console.error("State error:", e); }
 
     // 2. DISTRICT DATA (The part that uses the new [Year, Value] format)
     const selected = districtSelect.value;
