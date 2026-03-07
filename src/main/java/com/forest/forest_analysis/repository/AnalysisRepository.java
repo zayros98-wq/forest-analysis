@@ -11,8 +11,8 @@ public interface AnalysisRepository extends JpaRepository<Analysis, AnalysisId> 
 
     List<Analysis> findByIdDistrictAndIdYear(String district, int year);
 
-    // This query averages all records for a year into one single point
-    @Query("SELECT a.id.year, AVG(a.forestCoverage) FROM Analysis a " +
+    // This query uses the correct name 'forestPercentage' from your Analysis class
+    @Query("SELECT a.id.year, AVG(a.forestPercentage) FROM Analysis a " +
             "WHERE a.id.district = :district " +
             "GROUP BY a.id.year " +
             "ORDER BY a.id.year ASC")
