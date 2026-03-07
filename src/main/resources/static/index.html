@@ -695,51 +695,48 @@ hoverBorderWidth: 2,
 }
             // --- CENTRAL UPDATE LOGIC ---
 async function handleGlobalTimeUpdate(year) {
-                yearDisplay.innerText = year;
-                timeSlider.value = year;
+    yearDisplay.innerText = year;
+    timeSlider.value = year;
 
-                // 1. STATE DATA (Tamil Nadu Overview)
-                try {
-                    // Fetching from /api/analysis/all
-                    const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
-                    
-                    // Match the year inside the 'id' object
-                    const sd = stateData.find(d => d.id.year == year);
-                    if (sd) {
-                        updateDoughnut('forestChart', [sd.forestPercentage, sd.landPercentage, sd.waterPercentage]);
-                        
-                  // row[0] is the Year, row[1] is the averaged Percentage
-const dLabels = distData.filter(row => row[0] <= year).map(row => row[0]);
-const dValues = distData.filter(row => row[0] <= year).map(row => row[1]);
-updateTrend('districtLineChart', dLabels, dValues);
-                    }
-                } catch(e) { 
-                    console.error("State Data error:", e); 
-                }
+    // 1. STATE DATA (Tamil Nadu Overview)
+    try {
+        const stateData = await fetch(`${API_BASE}/all`).then(r => r.json());
+        
+        // Match the year for the Pie Chart
+        const sd = stateData.find(d => d.id.year == year);
+        if (sd) {
+            updateDoughnut('forestChart', [sd.forestPercentage, sd.landPercentage, sd.waterPercentage]);
+            
+            // Build State trend lines (State still uses full objects, so we keep .id.year)
+            const trendLabels = stateData.filter(d => d.id.year <= year).map(d => d.id.year);
+            const trendValues = stateData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
+            updateTrend('stateLineChart', trendLabels, trendValues);
+        }
+    } catch(e) { console.error("State error:", e); }
 
-                // 2. DISTRICT DATA (Specific Selection)
-                const selected = districtSelect.value;
-                if (selected) {
-                    try {
-                        const distData = await fetchDistrictData(selected);
-                        
-                        // Match the year inside the 'id' object
-                        const dy = distData.find(d => d.id.year == year);
-                        if (dy) {
-                            updateDoughnut('districtForestChart', [dy.forestPercentage, dy.landPercentage, dy.waterPercentage]);
-                            
-                            const dLabels = distData.filter(d => d.id.year <= year).map(d => d.id.year);
-                            const dValues = distData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
-                            updateTrend('districtLineChart', dLabels, dValues);
-                        }
-                    } catch(e) {
-                        console.error("District Data error:", e);
-                    }
-                }
+    // 2. DISTRICT DATA (The part that uses the new [Year, Value] format)
+    const selected = districtSelect.value;
+    if (selected) {
+        try {
+            const distData = await fetchDistrictData(selected);
+            
+            // Fix 1: Map the Trend Line using array indexes [0] and [1]
+            const dLabels = distData.filter(row => row[0] <= year).map(row => row[0]);
+            const dValues = distData.filter(row => row[0] <= year).map(row => row[1]);
+            updateTrend('districtLineChart', dLabels, dValues);
 
-                // 3. 3D MAP
-                if (window.mapUpdate) window.mapUpdate(year);
+            // Fix 2: Match the year for the Pie Chart using array index [0]
+            const dy = distData.find(row => row[0] == year);
+            if (dy) {
+                // Since we only averaged Forest, we'll estimate Land/Water for the visual
+                const forest = dy[1];
+                updateDoughnut('districtForestChart', [forest, 100 - forest - 5, 5]);
             }
+        } catch(e) { console.error("District error:", e); }
+    }
+
+    if (window.mapUpdate) window.mapUpdate(year);
+}
             // Event Listeners
             timeSlider.addEventListener('input', (e) => handleGlobalTimeUpdate(e.target.value));
             districtSelect.addEventListener('change', () => handleGlobalTimeUpdate(timeSlider.value));
