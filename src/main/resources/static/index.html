@@ -708,10 +708,10 @@ async function handleGlobalTimeUpdate(year) {
                     if (sd) {
                         updateDoughnut('forestChart', [sd.forestPercentage, sd.landPercentage, sd.waterPercentage]);
                         
-                        // Build trend lines using id.year
-                        const trendLabels = stateData.filter(d => d.id.year <= year).map(d => d.id.year);
-                        const trendValues = stateData.filter(d => d.id.year <= year).map(d => d.forestPercentage);
-                        updateTrend('stateLineChart', trendLabels, trendValues);
+                  // row[0] is the Year, row[1] is the averaged Percentage
+const dLabels = distData.filter(row => row[0] <= year).map(row => row[0]);
+const dValues = distData.filter(row => row[0] <= year).map(row => row[1]);
+updateTrend('districtLineChart', dLabels, dValues);
                     }
                 } catch(e) { 
                     console.error("State Data error:", e); 
