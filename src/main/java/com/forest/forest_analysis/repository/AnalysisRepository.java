@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface AnalysisRepository extends JpaRepository<Analysis, AnalysisId> {
 
+    // ADD THIS LINE - This fixes the compilation error
+    List<Analysis> findByIdDistrict(String district);
+
     List<Analysis> findByIdDistrictAndIdYear(String district, int year);
 
-    // This query uses the correct name 'forestPercentage' from your Analysis class
     @Query("SELECT a.id.year, AVG(a.forestPercentage) FROM Analysis a " +
             "WHERE a.id.district = :district " +
             "GROUP BY a.id.year " +

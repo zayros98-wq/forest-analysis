@@ -22,10 +22,11 @@ public class AnalysisController {
         return analysisRepository.findAll();
     }
 
-    @GetMapping("/district/{district}")
-    public List<Object[]> getByDistrict(@PathVariable String district) {
-        // This matches the new method name we created in your Repository
-        return analysisRepository.findAverageForestCoverageByDistrict(district);
+    // Inside AnalysisController.java
+    @GetMapping("/district/{districtId}")
+    public List<Analysis> getByDistrict(@PathVariable String districtId) {
+        // Make sure this name matches exactly what you added to the Repository
+        return analysisRepository.findByIdDistrict(districtId);
     }
 
     @GetMapping("/district/{district}/year/{year}")
