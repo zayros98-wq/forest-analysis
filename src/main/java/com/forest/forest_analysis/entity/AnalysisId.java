@@ -8,22 +8,17 @@ import java.util.Objects;
 @Embeddable
 public class AnalysisId implements Serializable {
 
-    @Column(name = "district")
+    @Column(name = "district") // Matches your screenshot
     private String district;
 
-    @Column(name = "Year") // CRITICAL: This matches the capital 'Y' in your database
+    @Column(name = "Year") // Matches your screenshot (Capital Y)
     private int year;
 
     public AnalysisId() {}
-
-    public AnalysisId(String district, int year) {
-        this.district = district;
-        this.year = year;
-    }
+    public AnalysisId(String district, int year) { this.district = district; this.year = year; }
 
     public String getDistrict() { return district; }
     public void setDistrict(String district) { this.district = district; }
-
     public int getYear() { return year; }
     public void setYear(int year) { this.year = year; }
 
@@ -34,9 +29,6 @@ public class AnalysisId implements Serializable {
         AnalysisId that = (AnalysisId) o;
         return year == that.year && Objects.equals(district, that.district);
     }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(district, year);
-    }
+    public int hashCode() { return Objects.hash(district, year); }
 }
